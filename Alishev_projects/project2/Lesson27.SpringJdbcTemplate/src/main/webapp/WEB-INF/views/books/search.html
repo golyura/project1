@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search book</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/books/search}">
+    <label for="search">Введите поисковый запрос: </label>
+    <input type="text" th:name="lookfor" id="search"/>
+    <br/>
+    <input type="submit" value="Поиск!"/>
+</form>
+<hr/>
+
+
+<div th:if="${books}">
+    <div th:if="${books.isEmpty()}">
+        <span>Книг не найдено</span>
+    </div>
+
+    <div th:each="book : ${books}">
+        <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
+
+        <div th:if="${book.getOwner() != null}">
+            <span>Книга находится у: </span> <span th:text="${book.getOwner().getFio()}"/>
+        </div>
+
+        <div th:if="${book.getOwner() == null}">
+            <span>Книга сейчас свободна</span>
+        </div>
+
+    </div>
+
+
+</div>
+
+<!--<span th:if="${book}">-->
+<!--    <span>Книга найдена: </span>-->
+<!--    <span th:text="${book.getName()}"/>-->
+
+<!--<p th:if="${person}">-->
+<!--    <span>Книга находится у: </span>-->
+<!--    <span th:text="${person.getFio()}"/>-->
+<!--</p>-->
+<!--    <p th:unless="${person}">Книга сейчас свободна</p>-->
+
+<!--</span>-->
+
+<!--<p th:unless="${book}">Книга не найдена</p>-->
+
+</body>
+</html>
